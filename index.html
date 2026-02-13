@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en"
+  data-layout="vertical"
+  data-topbar="light"
+  data-sidebar="light"
+  data-sidebar-size="lg"
+  data-sidebar-image="none"
+  data-preloader="disable">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard</title>
+
+    <script>
+      // Some browser extensions inject scripts that assume these globals exist.
+      // Defining safe fallbacks prevents noisy ReferenceError logs in devtools.
+      window.crossbrowserName = window.crossbrowserName || "chrome";
+      window.REMOTE_CONFIG_KEYS = window.REMOTE_CONFIG_KEYS || {};
+      window.webextApi = window.webextApi || {};
+    </script>
+
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="/assets/images/favicon.ico" />
+
+    <!-- Layout config (kept from template; safe if present) -->
+    <script src="/assets/js/layout.js"></script>
+
+    <!-- Vendor / Template styles -->
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/assets/css/icons.min.css" rel="stylesheet" />
+    <link href="/assets/css/app.min.css" rel="stylesheet" />
+    <link href="/assets/css/custom.min.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <!-- Bootstrap JS (dropdown/collapse) -->
+    <script src="/assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
