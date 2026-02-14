@@ -1,5 +1,4 @@
-import React from "react";
-import { AuthProvider } from "../../features/auth/session/model/AuthContext";
+import { AuthProvider } from "@/features/auth/session";
 
 export function AppProviders({ children }) {
   return <AuthProvider>{children}</AuthProvider>;

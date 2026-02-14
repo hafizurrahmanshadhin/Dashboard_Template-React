@@ -1,24 +1,16 @@
-import React from "react";
 import { createBrowserRouter, Navigate } from "react-router-dom";
 
-import AuthLayout from "../../widgets/auth-shell/AuthLayout";
-import DashboardLayout from "../../widgets/dashboard-shell/DashboardLayout";
+import { AuthLayout, DashboardLayout } from "@/widgets/layouts";
+import { ForgotPasswordPage, LoginPage, RegisterPage } from "@/pages/auth";
+import { DashboardPage } from "@/pages/dashboard";
+import { NotFoundPage } from "@/pages/not-found";
+import { RolePermissionManagePage, RolePermissionPage } from "@/pages/rbac";
+import { UsersPage } from "@/pages/users";
 
-import LoginPage from "../../pages/auth/LoginPage";
-import RegisterPage from "../../pages/auth/RegisterPage";
-import ForgotPasswordPage from "../../pages/auth/ForgotPasswordPage";
+import { RequireAuth } from "@/features/auth/session";
+import { PATHS } from "@/shared/config";
 
-import DashboardPage from "../../pages/dashboard/DashboardPage";
-import RolePermissionPage from "../../pages/apps/RolePermissionPage";
-import RolePermissionManagePage from "../../pages/apps/RolePermissionManagePage";
-import UsersPage from "../../pages/apps/UsersPage";
-
-import NotFoundPage from "../../pages/not-found/NotFoundPage";
-
-import RequireAuth from "../../features/auth/session/guards/RequireAuth";
-import { PATHS } from "./paths";
-
-export const router = createBrowserRouter([
+export const appRoutes = [
   { path: PATHS.root, element: <Navigate to={PATHS.dashboard} replace /> },
 
   {
@@ -45,4 +37,6 @@ export const router = createBrowserRouter([
   },
 
   { path: "*", element: <NotFoundPage /> },
-]);
+];
+
+export const router = createBrowserRouter(appRoutes);

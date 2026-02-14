@@ -1,5 +1,5 @@
-import { PERMISSIONS } from "../../../entities/permission/model/permissions";
-import { PATHS } from "../../../app/router/paths";
+import { PERMISSIONS } from "@/entities/permission";
+import { PATHS } from "@/shared/config";
 
 export const MENU = [
   {
@@ -26,6 +26,7 @@ export const MENU = [
         label: "Role & Permission",
         iconClass: "ri-shield-user-line",
         to: PATHS.rolePermission,
+        matchPrefix: true,
       },
       { label: "Users", iconClass: "ri-team-line", to: PATHS.users },
     ],

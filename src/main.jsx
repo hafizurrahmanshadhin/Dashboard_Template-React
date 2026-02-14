@@ -1,10 +1,13 @@
-import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./app/App";
+import { StrictMode } from "react";
+import App from "./app";
+import "remixicon/fonts/remixicon.css";
+import "@mdi/font/css/materialdesignicons.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "./shared/styles/global.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
+  <StrictMode>
     <App />
-  </React.StrictMode>
+  </StrictMode>
 );

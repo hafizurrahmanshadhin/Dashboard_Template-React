@@ -1,15 +1,35 @@
-import React, { createContext, useContext, useEffect, useMemo, useState } from "react";
-import { api } from "../../../../shared/api/axios";
-import { PERMISSIONS } from "../../../../entities/permission/model/permissions";
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { api } from "@/shared/api";
+import { PERMISSIONS } from "@/entities/permission";
 
 const AuthContext = createContext(null);
 
 const LS_KEY = "velzon_demo_auth";
+const DEFAULT_PERMISSIONS = [PERMISSIONS.DASHBOARD_VIEW];
+
+function normalizePermissions(permissions) {
+  if (Array.isArray(permissions) && permissions.length > 0) {
+    return permissions;
+  }
+  return DEFAULT_PERMISSIONS;
+}
+
+function normalizeSession(rawSession) {
+  if (!rawSession?.token) return null;
+
+  return {
+    ...rawSession,
+    user: {
+      ...(rawSession.user || {}),
+      permissions: normalizePermissions(rawSession?.user?.permissions),
+    },
+  };
+}
 
 function loadSession() {
   try {
     const raw = localStorage.getItem(LS_KEY);
-    return raw ? JSON.parse(raw) : null;
+    return raw ? normalizeSession(JSON.parse(raw)) : null;
   } catch {
     return null;
   }
@@ -32,9 +52,8 @@ function buildUser(apiUser = {}) {
     phone_number: apiUser?.phone_number || "",
     address: apiUser?.address ?? null,
     role: apiUser?.role || "user",
-    permissions: Array.isArray(apiUser?.permissions)
-      ? apiUser.permissions
-      : [PERMISSIONS.DASHBOARD_VIEW],
+    // Keep dashboard visible for accounts where API omits explicit permissions.
+    permissions: normalizePermissions(apiUser?.permissions),
     terms_and_conditions: Boolean(apiUser?.terms_and_conditions),
   };
 }

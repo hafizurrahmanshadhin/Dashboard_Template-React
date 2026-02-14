@@ -1,4 +1,4 @@
-import { useAuth } from "../../features/auth/session/model/AuthContext";
+import { useAuth } from "@/features/auth/session";
 
 const stats = [
   { label: "Total Users", value: 1240, icon: "ri-user-3-line" },

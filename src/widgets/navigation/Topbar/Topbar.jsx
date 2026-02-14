@@ -1,13 +1,12 @@
-import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../../features/auth/session/model/AuthContext";
-import { PATHS } from "../../../app/router/paths";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "@/features/auth/session";
+import { PATHS } from "@/shared/config";
 
 export default function Topbar({ onToggleSidebar }) {
   const { user, logout } = useAuth();
   const nav = useNavigate();
 
-  const onLogout = async (e) => {
-    e.preventDefault();
+  const onLogout = async () => {
     await logout();
     nav(PATHS.login);
   };
@@ -18,23 +17,23 @@ export default function Topbar({ onToggleSidebar }) {
         <div className="navbar-header">
           <div className="d-flex">
             <div className="navbar-brand-box horizontal-logo">
-              <a href={PATHS.dashboard} className="logo logo-dark">
+              <Link to={PATHS.dashboard} className="logo logo-dark">
                 <span className="logo-sm">
                   <img src="/assets/images/logo-sm.png" alt="" height="22" />
                 </span>
                 <span className="logo-lg">
                   <img src="/assets/images/logo-dark.png" alt="" height="17" />
                 </span>
-              </a>
+              </Link>
 
-              <a href={PATHS.dashboard} className="logo logo-light">
+              <Link to={PATHS.dashboard} className="logo logo-light">
                 <span className="logo-sm">
                   <img src="/assets/images/logo-sm.png" alt="" height="22" />
                 </span>
                 <span className="logo-lg">
                   <img src="/assets/images/logo-light.png" alt="" height="17" />
                 </span>
-              </a>
+              </Link>
             </div>
 
             <button
@@ -80,15 +79,15 @@ export default function Topbar({ onToggleSidebar }) {
 
               <div className="dropdown-menu dropdown-menu-end">
                 <h6 className="dropdown-header">Welcome!</h6>
-                <a className="dropdown-item" href={PATHS.dashboard}>
+                <Link className="dropdown-item" to={PATHS.dashboard}>
                   <i className="mdi mdi-view-dashboard text-muted fs-16 align-middle me-1"></i>
                   <span className="align-middle">Dashboard</span>
-                </a>
+                </Link>
                 <div className="dropdown-divider"></div>
-                <a className="dropdown-item" href="#" onClick={onLogout}>
+                <button type="button" className="dropdown-item" onClick={onLogout}>
                   <i className="mdi mdi-logout text-muted fs-16 align-middle me-1"></i>
                   <span className="align-middle">Logout</span>
-                </a>
+                </button>
               </div>
             </div>
           </div>

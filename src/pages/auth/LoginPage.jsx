@@ -1,8 +1,8 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { useAuth } from "../../features/auth/session/model/AuthContext";
-import Alert from "../../shared/ui/Alert";
-import { PATHS } from "../../app/router/paths";
+import { useAuth } from "@/features/auth/session";
+import { Alert } from "@/shared/ui";
+import { PATHS } from "@/shared/config";
 
 export default function LoginPage() {
   const nav = useNavigate();
@@ -38,7 +38,9 @@ export default function LoginPage() {
 
             <div className="p-2 mt-4">
               {error ? <Alert variant="warning">{error}</Alert> : null}
-              {location.state?.message ? <Alert variant="success">{location.state.message}</Alert> : null}
+              {location.state?.message ? (
+                <Alert variant="success">{location.state.message}</Alert>
+              ) : null}
 
               <form onSubmit={onSubmit}>
                 <div className="mb-3">
@@ -110,8 +112,11 @@ export default function LoginPage() {
 
         <div className="mt-4 text-center">
           <p className="mb-0">
-            Don't have an account ?{" "}
-            <Link to={PATHS.register} className="fw-semibold text-primary text-decoration-underline">
+            Don&apos;t have an account ?{" "}
+            <Link
+              to={PATHS.register}
+              className="fw-semibold text-primary text-decoration-underline"
+            >
               Signup
             </Link>
           </p>

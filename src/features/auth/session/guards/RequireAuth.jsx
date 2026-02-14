@@ -1,6 +1,6 @@
 import { Navigate } from "react-router-dom";
-import { useAuth } from "../model/AuthContext";
-import { PATHS } from "../../../../app/router/paths";
+import { useAuth } from "@/features/auth/session";
+import { PATHS } from "@/shared/config";
 
 export default function RequireAuth({ children }) {
   const { isAuthenticated } = useAuth();

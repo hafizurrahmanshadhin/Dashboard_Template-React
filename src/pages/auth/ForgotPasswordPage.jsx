@@ -1,8 +1,8 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { api } from "../../shared/api/axios";
-import Alert from "../../shared/ui/Alert";
-import { PATHS } from "../../app/router/paths";
+import { api } from "@/shared/api";
+import { Alert } from "@/shared/ui";
+import { PATHS } from "@/shared/config";
 
 const RESEND_COOLDOWN_SECONDS = 120;
 

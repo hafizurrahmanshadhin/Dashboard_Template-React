@@ -1,0 +1,5 @@
+dist
+node_modules
+.codex-build-check
+package-lock.json
+public/assets

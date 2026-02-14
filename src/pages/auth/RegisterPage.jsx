@@ -1,8 +1,8 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import Alert from "../../shared/ui/Alert";
-import { PATHS } from "../../app/router/paths";
-import { useAuth } from "../../features/auth/session/model/AuthContext";
+import { Alert } from "@/shared/ui";
+import { PATHS } from "@/shared/config";
+import { useAuth } from "@/features/auth/session";
 
 export default function RegisterPage() {
   const nav = useNavigate();

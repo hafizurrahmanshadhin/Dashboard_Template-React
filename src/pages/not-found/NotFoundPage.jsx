@@ -1,8 +1,7 @@
 import { Link } from "react-router-dom";
-import { useHtmlDataset } from "../../shared/hooks/useHtmlDataset";
-import { useBodyClass } from "../../shared/hooks/useBodyClass";
-import { useAuth } from "../../features/auth/session/model/AuthContext";
-import { PATHS } from "../../app/router/paths";
+import { useBodyClass, useHtmlDataset } from "@/shared/hooks";
+import { useAuth } from "@/features/auth/session";
+import { PATHS } from "@/shared/config";
 
 export default function NotFoundPage() {
   const { isAuthenticated } = useAuth();

@@ -1,12 +1,20 @@
-import { NavLink, useLocation } from "react-router-dom";
-import { useEffect, useMemo, useState } from "react";
+import { Fragment, useEffect, useMemo, useState } from "react";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import { MENU } from "./menu.config";
-import { useAuth } from "../../../features/auth/session/model/AuthContext";
+import { useAuth } from "@/features/auth/session";
+import { PATHS } from "@/shared/config";
 
 function hasPermissions(user, needed = []) {
   if (!needed?.length) return true;
   const set = new Set(user?.permissions || []);
   return needed.every((p) => set.has(p));
+}
+
+function isItemActive(pathname, item) {
+  if (item.matchPrefix) {
+    return pathname === item.to || pathname.startsWith(`${item.to}/`);
+  }
+  return pathname === item.to;
 }
 
 export default function Sidebar({ collapsed, onNavigate, onCloseMobile }) {
@@ -39,23 +47,23 @@ export default function Sidebar({ collapsed, onNavigate, onCloseMobile }) {
   return (
     <div className="app-menu navbar-menu">
       <div className="navbar-brand-box">
-        <a href="/dashboard" className="logo logo-dark">
+        <Link to={PATHS.dashboard} className="logo logo-dark">
           <span className="logo-sm">
             <img src="/assets/images/logo-sm.png" alt="" height="22" />
           </span>
           <span className="logo-lg">
             <img src="/assets/images/logo-dark.png" alt="" height="17" />
           </span>
-        </a>
+        </Link>
 
-        <a href="/dashboard" className="logo logo-light">
+        <Link to={PATHS.dashboard} className="logo logo-light">
           <span className="logo-sm">
             <img src="/assets/images/logo-sm.png" alt="" height="22" />
           </span>
           <span className="logo-lg">
             <img src="/assets/images/logo-light.png" alt="" height="17" />
           </span>
-        </a>
+        </Link>
 
         <button
           type="button"
@@ -84,7 +92,7 @@ export default function Sidebar({ collapsed, onNavigate, onCloseMobile }) {
 
           <ul className="navbar-nav" id="navbar-nav">
             {menu.map((group) => (
-              <div key={group.title}>
+              <Fragment key={group.title}>
                 <li className="menu-title">
                   <span>{group.title}</span>
                 </li>
@@ -104,11 +112,13 @@ export default function Sidebar({ collapsed, onNavigate, onCloseMobile }) {
                     <li className="nav-item" key={item.label}>
                       <NavLink
                         to={item.to}
-                        className={({ isActive }) =>
-                          isActive ? "nav-link menu-link active" : "nav-link menu-link"
+                        className={() =>
+                          isItemActive(location.pathname, item)
+                            ? "nav-link menu-link active"
+                            : "nav-link menu-link"
                         }
                         onClick={onNavigate}
-                        end
+                        end={!item.matchPrefix}
                       >
                         <i className={item.iconClass}></i>
                         <span>{item.label}</span>
@@ -116,7 +126,7 @@ export default function Sidebar({ collapsed, onNavigate, onCloseMobile }) {
                     </li>
                   )
                 )}
-              </div>
+              </Fragment>
             ))}
           </ul>
         </div>
@@ -130,19 +140,15 @@ export default function Sidebar({ collapsed, onNavigate, onCloseMobile }) {
 function SidebarGroup({ item, open, onToggle, onNavigate }) {
   return (
     <li className="nav-item">
-      <a
-        className="nav-link menu-link"
-        href="#!"
-        role="button"
-        aria-expanded={open ? "true" : "false"}
-        onClick={(e) => {
-          e.preventDefault();
-          onToggle();
-        }}
+      <button
+        type="button"
+        className="nav-link menu-link w-100 text-start border-0 bg-transparent"
+        aria-expanded={open}
+        onClick={onToggle}
       >
         <i className={item.iconClass}></i>
         <span>{item.label}</span>
-      </a>
+      </button>
 
       <div className={open ? "collapse menu-dropdown show" : "collapse menu-dropdown"}>
         <ul className="nav nav-sm flex-column">
